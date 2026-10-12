@@ -1,3 +1,10 @@
+<script setup>
+
+
+</script>
+
+
+
 <template>
   <div class="container page-space">
     <!-- DEMANDE 01 — À PROGRAMMER : Lier le nom, le slogan, le logo et les images avec les données de la boutique. -->
@@ -175,435 +182,39 @@
       </div>
       <div class="product-grid">
         <!-- DEMANDE 02 / 05 — À PROGRAMMER : Transformer cette carte en ProductCard, déclarer les props et émettre add. Répéter les cartes depuis les données. -->
-        <article
+        <article v-for="product in products" :key="product.id"
           class="product-card"
           data-component="ProductCard"
           data-product-id="1"
         >
           <div class="product-media">
-            <a aria-label="Voir Riz brisé parfumé" href="produits/01-riz.html">
+            <a aria-label="Voir Riz brisé parfumé" href="produits/01-riz.html">{{ product.name }}
               <img
-                alt="Riz brisé parfumé"
+                :alt="product.name"
                 height="240"
                 loading="lazy"
-                src="/images/riz.svg"
+                :src="product.image"
                 width="360"
               />
             </a>
           </div>
           <div class="product-body">
-            <p class="overline">Vallée du fleuve</p>
+            <p class="overline">{{product.origin}}</p>
             <h3>
-              <a href="produits/01-riz.html"> Riz brisé parfumé </a>
+              <a href="produits/01-riz.html"> {{ product.name }} </a>
             </h3>
-            <p class="muted small">sac de 25 kg · 18 disponible(s)</p>
+            <p class="muted small">{{product.unit}} · {{product.stock}} disponible(s)</p>
             <span class="stock">
               <span aria-hidden="true"> </span>
-              Disponible
+              {{product.stock ? "Disponible" : "Indisponible"}}
             </span>
             <div class="product-bottom">
               <div>
-                <strong> 17 500 FCFA </strong>
+                <del v-if="product.salePrice">{{product.price}}</del>
+                <strong> {{product.salePrice ? product.salePrice : product.price}} FCFA </strong>
               </div>
               <button
                 aria-label="Ajouter Riz brisé parfumé au panier"
-                class="add-button"
-                data-action="ajouter-panier"
-                type="button"
-              >
-                <svg
-                  aria-hidden="true"
-                  class="icon"
-                  fill="none"
-                  height="20"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="1.7"
-                  viewbox="0 0 24 24"
-                  width="20"
-                >
-                  <path d="M12 5v14M5 12h14"></path>
-                </svg>
-              </button>
-            </div>
-          </div>
-        </article>
-        <!-- DEMANDE 02 / 05 — À PROGRAMMER : Transformer cette carte en ProductCard, déclarer les props et émettre add. Répéter les cartes depuis les données. -->
-        <article
-          class="product-card"
-          data-component="ProductCard"
-          data-product-id="2"
-        >
-          <div class="product-media">
-            <a
-              aria-label="Voir Oignons de Potou"
-              href="produits/02-oignons.html"
-            >
-              <img
-                alt="Oignons de Potou"
-                height="240"
-                loading="lazy"
-                src="/images/oignons.svg"
-                width="360"
-              />
-            </a>
-            <span class="promo-tag"> Promo −7 % </span>
-          </div>
-          <div class="product-body">
-            <p class="overline">Potou</p>
-            <h3>
-              <a href="produits/02-oignons.html"> Oignons de Potou </a>
-            </h3>
-            <p class="muted small">kg · 4 disponible(s)</p>
-            <span class="stock low">
-              <span aria-hidden="true"> </span>
-              Stock faible
-            </span>
-            <div class="product-bottom">
-              <div>
-                <del> 750 FCFA </del>
-                <strong> 700 FCFA </strong>
-              </div>
-              <button
-                aria-label="Ajouter Oignons de Potou au panier"
-                class="add-button"
-                data-action="ajouter-panier"
-                type="button"
-              >
-                <svg
-                  aria-hidden="true"
-                  class="icon"
-                  fill="none"
-                  height="20"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="1.7"
-                  viewbox="0 0 24 24"
-                  width="20"
-                >
-                  <path d="M12 5v14M5 12h14"></path>
-                </svg>
-              </button>
-            </div>
-          </div>
-        </article>
-        <!-- DEMANDE 02 / 05 — À PROGRAMMER : Transformer cette carte en ProductCard, déclarer les props et émettre add. Répéter les cartes depuis les données. -->
-        <article
-          class="product-card"
-          data-component="ProductCard"
-          data-product-id="4"
-        >
-          <div class="product-media">
-            <a aria-label="Voir Fonio précuit" href="produits/04-fonio.html">
-              <img
-                alt="Fonio précuit"
-                height="240"
-                loading="lazy"
-                src="/images/fonio.svg"
-                width="360"
-              />
-            </a>
-            <span class="promo-tag"> Promo −9 % </span>
-          </div>
-          <div class="product-body">
-            <p class="overline">Kédougou</p>
-            <h3>
-              <a href="produits/04-fonio.html"> Fonio précuit </a>
-            </h3>
-            <p class="muted small">sachet de 500 g · 12 disponible(s)</p>
-            <span class="stock">
-              <span aria-hidden="true"> </span>
-              Disponible
-            </span>
-            <div class="product-bottom">
-              <div>
-                <del> 2 200 FCFA </del>
-                <strong> 2 000 FCFA </strong>
-              </div>
-              <button
-                aria-label="Ajouter Fonio précuit au panier"
-                class="add-button"
-                data-action="ajouter-panier"
-                type="button"
-              >
-                <svg
-                  aria-hidden="true"
-                  class="icon"
-                  fill="none"
-                  height="20"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="1.7"
-                  viewbox="0 0 24 24"
-                  width="20"
-                >
-                  <path d="M12 5v14M5 12h14"></path>
-                </svg>
-              </button>
-            </div>
-          </div>
-        </article>
-        <!-- DEMANDE 02 / 05 — À PROGRAMMER : Transformer cette carte en ProductCard, déclarer les props et émettre add. Répéter les cartes depuis les données. -->
-        <article
-          class="product-card out-of-stock"
-          data-component="ProductCard"
-          data-product-id="8"
-        >
-          <div class="product-media">
-            <a aria-label="Voir Gombo frais" href="produits/08-gombo.html">
-              <img
-                alt="Gombo frais"
-                height="240"
-                loading="lazy"
-                src="/images/gombo.svg"
-                width="360"
-              />
-            </a>
-          </div>
-          <div class="product-body">
-            <p class="overline">Thiès</p>
-            <h3>
-              <a href="produits/08-gombo.html"> Gombo frais </a>
-            </h3>
-            <p class="muted small">kg · 0 disponible(s)</p>
-            <span class="stock empty">
-              <span aria-hidden="true"> </span>
-              Rupture de stock
-            </span>
-            <div class="product-bottom">
-              <div>
-                <strong> 1 200 FCFA </strong>
-              </div>
-              <button
-                aria-label="Ajouter Gombo frais au panier"
-                class="add-button"
-                data-action="ajouter-panier"
-                disabled=""
-                type="button"
-              >
-                <svg
-                  aria-hidden="true"
-                  class="icon"
-                  fill="none"
-                  height="20"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="1.7"
-                  viewbox="0 0 24 24"
-                  width="20"
-                >
-                  <path d="M12 5v14M5 12h14"></path>
-                </svg>
-              </button>
-            </div>
-          </div>
-        </article>
-        <!-- DEMANDE 02 / 05 — À PROGRAMMER : Transformer cette carte en ProductCard, déclarer les props et émettre add. Répéter les cartes depuis les données. -->
-        <article
-          class="product-card"
-          data-component="ProductCard"
-          data-product-id="9"
-        >
-          <div class="product-media">
-            <a aria-label="Voir Huile d’arachide" href="produits/09-huile.html">
-              <img
-                alt="Huile d’arachide"
-                height="240"
-                loading="lazy"
-                src="/images/huile.svg"
-                width="360"
-              />
-            </a>
-            <span class="promo-tag"> Promo −7 % </span>
-          </div>
-          <div class="product-body">
-            <p class="overline">Kaolack</p>
-            <h3>
-              <a href="produits/09-huile.html"> Huile d’arachide </a>
-            </h3>
-            <p class="muted small">bouteille de 2 L · 20 disponible(s)</p>
-            <span class="stock">
-              <span aria-hidden="true"> </span>
-              Disponible
-            </span>
-            <div class="product-bottom">
-              <div>
-                <del> 4 500 FCFA </del>
-                <strong> 4 200 FCFA </strong>
-              </div>
-              <button
-                aria-label="Ajouter Huile d’arachide au panier"
-                class="add-button"
-                data-action="ajouter-panier"
-                type="button"
-              >
-                <svg
-                  aria-hidden="true"
-                  class="icon"
-                  fill="none"
-                  height="20"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="1.7"
-                  viewbox="0 0 24 24"
-                  width="20"
-                >
-                  <path d="M12 5v14M5 12h14"></path>
-                </svg>
-              </button>
-            </div>
-          </div>
-        </article>
-        <!-- DEMANDE 02 / 05 — À PROGRAMMER : Transformer cette carte en ProductCard, déclarer les props et émettre add. Répéter les cartes depuis les données. -->
-        <article
-          class="product-card"
-          data-component="ProductCard"
-          data-product-id="13"
-        >
-          <div class="product-media">
-            <a aria-label="Voir Thiof" href="produits/13-thiof.html">
-              <img
-                alt="Thiof"
-                height="240"
-                loading="lazy"
-                src="/images/thiof.svg"
-                width="360"
-              />
-            </a>
-          </div>
-          <div class="product-body">
-            <p class="overline">Joal</p>
-            <h3>
-              <a href="produits/13-thiof.html"> Thiof </a>
-            </h3>
-            <p class="muted small">kg · 8 disponible(s)</p>
-            <span class="stock">
-              <span aria-hidden="true"> </span>
-              Disponible
-            </span>
-            <div class="product-bottom">
-              <div>
-                <strong> 4 500 FCFA </strong>
-              </div>
-              <button
-                aria-label="Ajouter Thiof au panier"
-                class="add-button"
-                data-action="ajouter-panier"
-                type="button"
-              >
-                <svg
-                  aria-hidden="true"
-                  class="icon"
-                  fill="none"
-                  height="20"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="1.7"
-                  viewbox="0 0 24 24"
-                  width="20"
-                >
-                  <path d="M12 5v14M5 12h14"></path>
-                </svg>
-              </button>
-            </div>
-          </div>
-        </article>
-        <!-- DEMANDE 02 / 05 — À PROGRAMMER : Transformer cette carte en ProductCard, déclarer les props et émettre add. Répéter les cartes depuis les données. -->
-        <article
-          class="product-card"
-          data-component="ProductCard"
-          data-product-id="17"
-        >
-          <div class="product-media">
-            <a aria-label="Voir Bissap séché" href="produits/17-bissap.html">
-              <img
-                alt="Bissap séché"
-                height="240"
-                loading="lazy"
-                src="/images/bissap.svg"
-                width="360"
-              />
-            </a>
-          </div>
-          <div class="product-body">
-            <p class="overline">Kaolack</p>
-            <h3>
-              <a href="produits/17-bissap.html"> Bissap séché </a>
-            </h3>
-            <p class="muted small">sachet de 250 g · 22 disponible(s)</p>
-            <span class="stock">
-              <span aria-hidden="true"> </span>
-              Disponible
-            </span>
-            <div class="product-bottom">
-              <div>
-                <strong> 1 200 FCFA </strong>
-              </div>
-              <button
-                aria-label="Ajouter Bissap séché au panier"
-                class="add-button"
-                data-action="ajouter-panier"
-                type="button"
-              >
-                <svg
-                  aria-hidden="true"
-                  class="icon"
-                  fill="none"
-                  height="20"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="1.7"
-                  viewbox="0 0 24 24"
-                  width="20"
-                >
-                  <path d="M12 5v14M5 12h14"></path>
-                </svg>
-              </button>
-            </div>
-          </div>
-        </article>
-        <!-- DEMANDE 02 / 05 — À PROGRAMMER : Transformer cette carte en ProductCard, déclarer les props et émettre add. Répéter les cartes depuis les données. -->
-        <article
-          class="product-card"
-          data-component="ProductCard"
-          data-product-id="18"
-        >
-          <div class="product-media">
-            <a aria-label="Voir Bouye en poudre" href="produits/18-bouye.html">
-              <img
-                alt="Bouye en poudre"
-                height="240"
-                loading="lazy"
-                src="/images/bouye.svg"
-                width="360"
-              />
-            </a>
-            <span class="promo-tag"> Promo −11 % </span>
-          </div>
-          <div class="product-body">
-            <p class="overline">Tambacounda</p>
-            <h3>
-              <a href="produits/18-bouye.html"> Bouye en poudre </a>
-            </h3>
-            <p class="muted small">sachet de 500 g · 13 disponible(s)</p>
-            <span class="stock">
-              <span aria-hidden="true"> </span>
-              Disponible
-            </span>
-            <div class="product-bottom">
-              <div>
-                <del> 1 800 FCFA </del>
-                <strong> 1 600 FCFA </strong>
-              </div>
-              <button
-                aria-label="Ajouter Bouye en poudre au panier"
                 class="add-button"
                 data-action="ajouter-panier"
                 type="button"
