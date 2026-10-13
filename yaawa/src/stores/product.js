@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { products } from "../services/api";
+import { api } from "../services/api";
 import { ref, computed } from "vue";
 
 export const useProductStore = defineStore('product', ()=> {
@@ -7,11 +7,19 @@ export const useProductStore = defineStore('product', ()=> {
     const loading = ref(true);
     const error = ref('');
 
-    function load()
+    async function load()
     {
-        // setTimeout(()=>{
-            items.value = [...products];
-        // },2000)
+        loading.value = true;
+        try {
+            const prods = await api.get('products');        
+            items.value = prods;
+            return prods;
+        } catch (e) {
+            error.value = e.message;
+        }finally{
+            loading.value = false;
+        }
+        
     }
     
     const categories = ref([]);
@@ -28,13 +36,17 @@ export const useProductStore = defineStore('product', ()=> {
         }
     }
 
-    function loadCategories(){
-        return [];
+    async function loadCategories(){
+        try {
+            const category = await api.get('categories');        
+            categories.value = category;
+        } catch (e) {            
+            categoryError.value = e.message;
+        }
     }
 
-    function init(){
-        loadCategories();
-        load();
+    async function init(){
+        return await Promise.all([load(), loadCategories()])
     }
 
     return {
