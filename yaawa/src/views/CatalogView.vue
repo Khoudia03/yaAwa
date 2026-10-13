@@ -1,4 +1,12 @@
 <script setup>
+import { onMounted } from 'vue';
+import { useProductStore } from '../stores/product';
+
+
+const productStore = useProductStore();
+console.log(productStore.items);
+onMounted(()=> productStore.init());
+
 
 
 </script>
@@ -182,7 +190,7 @@
       </div>
       <div class="product-grid">
         <!-- DEMANDE 02 / 05 — À PROGRAMMER : Transformer cette carte en ProductCard, déclarer les props et émettre add. Répéter les cartes depuis les données. -->
-        <article v-for="product in products" :key="product.id"
+        <article v-for="product in productStore.active" :key="product.id"
           class="product-card"
           data-component="ProductCard"
           data-product-id="1"
